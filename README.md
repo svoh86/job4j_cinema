@@ -1,5 +1,5 @@
 # Приложение "Кинотеатр"
-[![Java CI with Maven](https://github.com/svoh86/job4j_dreamjob/actions/workflows/maven.yml/badge.svg)](https://github.com/svoh86/job4j_dreamjob/actions/workflows/maven.yml)
+[![Java CI with Maven](https://github.com/svoh86/job4j_cinema/actions/workflows/maven.yml/badge.svg)](https://github.com/svoh86/job4j_cinema/actions/workflows/maven.yml)
 
 + [О проекте](#О-проекте)
 + [Технологии](#Технологии)
