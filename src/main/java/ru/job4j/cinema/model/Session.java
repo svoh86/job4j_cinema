@@ -22,6 +22,9 @@ public class Session {
      */
     private String time;
 
+    public Session() {
+    }
+
     public Session(int id, String name, String time) {
         this.id = id;
         this.name = name;
