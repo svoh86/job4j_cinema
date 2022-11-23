@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+    <title>Cinema</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/index}">Cinema</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav" align="center">
+                <a class="nav-item nav-link" th:href="@{/addUser}">Регистрация</a>
+                <a class="nav-item nav-link" th:if="${user.userName == 'Гость!'}" th:href="@{/loginPage}">
+                    <span th:text="${user.userName}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.userName != 'Гость!'}" th:href="@{/logout}">
+                    <span th:text="${user.userName}"></span>
+                    <span> | Выйти</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <table class="table table-bordered">
+            <col style="width:50%">
+            <col style="width:50%">
+            <thead>
+            <tr class="table-primary">
+                <th scope="col">Название фильма</th>
+                <th scope="col">Время</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-secondary">
+                <td th:text="${sessions.name}"/>
+                <td th:text="${sessions.time}"/>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <col style="width:50%">
+            <col style="width:50%">
+            <thead>
+            <tr class="table-primary">
+                <th scope="col">Ряд</th>
+                <th scope="col">Место</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-secondary" th:each="seat:${seats}">
+                <td th:text="${seat.row}"/>
+                <td th:text="${seat.cell}"/>
+            </tr>
+            </tbody>
+        </table>
+        </form>
+        <br>
+        <form th:action="@{/createTicket}" method="POST">
+            <button type="submit" class="btn btn-primary">
+                Оплатить
+            </button>
+        </form>
+        <a class="btn btn-danger" th:href="@{/index}" role="button">Отменить</a>
+    </div>
+    <div th:if="${needTickets}" class="alert alert-danger" role="alert">Добавьте билеты!</div>
+    <div th:if="${fail}" class="alert alert-danger" role="alert">
+        <table class="table table-bordered">
+            Извините, эти места уже заняты:
+            <col style="width:50%">
+            <col style="width:50%">
+            <thead>
+            <tr class="table-primary">
+                <th scope="col">Ряд</th>
+                <th scope="col">Место</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-secondary" th:each="failTicket:${failTickets}">
+                <td th:text="${failTicket.posRow}"/>
+                <td th:text="${failTicket.cell}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${success}" class="alert alert-success" role="alert">Билеты успешно куплены!</div>
+</div>
+</body>
+</html>
