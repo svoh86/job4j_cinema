@@ -1,5 +1,6 @@
 package ru.job4j.cinema.repository;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cinema.Main;
@@ -15,6 +16,16 @@ import static org.assertj.core.api.Assertions.*;
 class UserRepositoryTest {
     @BeforeEach
     private void before() {
+        try (Connection connection = new Main().loadPool().getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM users")) {
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @AfterEach
+    private void after() {
         try (Connection connection = new Main().loadPool().getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM users")) {
             statement.execute();

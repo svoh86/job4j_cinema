@@ -10,7 +10,6 @@ import ru.job4j.cinema.model.Session;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,7 @@ public class SessionRepository {
     private static final Logger LOG = LogManager.getLogger(SessionRepository.class);
     private static final String FIND_ALL = "SELECT * FROM sessions";
     private static final String FIND_BY_ID = "SELECT * FROM sessions where id = ?";
+    private static final String ADD = "INSERT INTO sessions(name, time) VALUES(?, ?)";
 
     public SessionRepository(BasicDataSource pool) {
         this.pool = pool;
@@ -68,5 +68,23 @@ public class SessionRepository {
             LOG.error("Exception in method findById()", e);
         }
         return null;
+    }
+
+    public Session add(Session session) {
+        try (Connection connection = pool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+                ADD, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, session.getName());
+            statement.setString(2, session.getTime());
+            statement.execute();
+            try (ResultSet rs = statement.getGeneratedKeys()) {
+                if (rs.next()) {
+                    session.setId(rs.getInt("id"));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Exception in method add()", e);
+        }
+        return session;
     }
 }
