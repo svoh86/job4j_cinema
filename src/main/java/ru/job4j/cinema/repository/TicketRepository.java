@@ -60,11 +60,12 @@ public class TicketRepository {
         return ticketDB;
     }
 
-    public List<Ticket> findTicketByUserId() {
+    public List<Ticket> findTicketByUserId(int id) {
         List<Ticket> tickets = new ArrayList<>();
         try (Connection connection = pool.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_TICKET_BY_USER_ID)
         ) {
+            statement.setInt(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     tickets.add(

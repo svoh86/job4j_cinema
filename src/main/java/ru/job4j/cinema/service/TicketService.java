@@ -25,7 +25,7 @@ public class TicketService {
         return ticketRepository.add(sessionId, posRow, cell, userId);
     }
 
-    public List<Ticket> findTicketByUserId() {
-        return ticketRepository.findTicketByUserId();
+    public List<Ticket> findTicketByUserId(int id) {
+        return ticketRepository.findTicketByUserId(id);
     }
 }
