@@ -51,13 +51,13 @@ public class UserRepository {
         return userDB;
     }
 
-    public Optional<User> findUserByEmailOrPhone(User user) {
+    public Optional<User> findUserByEmailOrPhone(String username, String email, String phone) {
         Optional<User> userDB = Optional.empty();
         try (Connection connection = pool.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_EMAIL_OR_PHONE)) {
-            statement.setString(1, user.getUserName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPhone());
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, phone);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     userDB = Optional.of(new User(

@@ -26,7 +26,7 @@ public class UserService {
         return userRepository.add(user);
     }
 
-    public Optional<User> findUserByEmailOrPhone(User user) {
-        return userRepository.findUserByEmailOrPhone(user);
+    public Optional<User> findUserByEmailOrPhone(String username, String email, String phone) {
+        return userRepository.findUserByEmailOrPhone(username, email, phone);
     }
 }
