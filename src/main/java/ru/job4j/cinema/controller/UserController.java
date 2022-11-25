@@ -11,10 +11,7 @@ import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Optional;
 
 /**
@@ -33,9 +30,9 @@ public class UserController {
     }
 
     @GetMapping("/addUser")
-    public String login(Model model,
-                        @RequestParam(name = "fail", required = false) Boolean fail,
-                        @RequestParam(name = "success", required = false) Boolean success) {
+    public String addUser(Model model,
+                          @RequestParam(name = "fail", required = false) Boolean fail,
+                          @RequestParam(name = "success", required = false) Boolean success) {
         model.addAttribute("fail", fail != null);
         model.addAttribute("success", success != null);
         return "addUser";
