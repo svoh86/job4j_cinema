@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.UserService;
+import ru.job4j.cinema.util.UserSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,7 +33,9 @@ public class UserController {
     @GetMapping("/addUser")
     public String addUser(Model model,
                           @RequestParam(name = "fail", required = false) Boolean fail,
-                          @RequestParam(name = "success", required = false) Boolean success) {
+                          @RequestParam(name = "success", required = false) Boolean success,
+                          HttpSession httpSession) {
+        UserSession.getUser(model, httpSession);
         model.addAttribute("fail", fail != null);
         model.addAttribute("success", success != null);
         return "addUser";

@@ -21,7 +21,7 @@ class UserControllerTest {
 
     @Test
     public void whenAddUserSuccess() {
-        String page = userController.addUser(model, null, true);
+        String page = userController.addUser(model, null, true, httpSession);
         verify(model).addAttribute("fail", false);
         verify(model).addAttribute("success", true);
         assertThat(page).isEqualTo("addUser");
@@ -29,7 +29,7 @@ class UserControllerTest {
 
     @Test
     public void whenAddUserFail() {
-        String page = userController.addUser(model, true, null);
+        String page = userController.addUser(model, true, null, httpSession);
         verify(model).addAttribute("fail", true);
         verify(model).addAttribute("success", false);
         assertThat(page).isEqualTo("addUser");
