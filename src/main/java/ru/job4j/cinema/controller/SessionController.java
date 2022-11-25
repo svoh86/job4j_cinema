@@ -14,7 +14,6 @@ import ru.job4j.cinema.service.SessionService;
 import ru.job4j.cinema.util.UserSession;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
 
 /**
  * Контроллер сеансов
