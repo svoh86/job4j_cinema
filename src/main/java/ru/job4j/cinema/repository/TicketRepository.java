@@ -4,7 +4,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 
 import java.sql.Connection;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Класс репозиторий билетов
+ * Хранилище билетов
  *
  * @author Svistunov Mikhail
  * @version 1.0
@@ -32,6 +31,16 @@ public class TicketRepository {
         this.pool = pool;
     }
 
+    /**
+     * Отправляет SQL запрос в БД.
+     * Добавляет билет в БД.
+     *
+     * @param sessionId id сеанса фильма
+     * @param posRow    ряд
+     * @param cell      сиденье
+     * @param userId    id пользователя
+     * @return Optional билета
+     */
     public Optional<Ticket> add(int sessionId, int posRow, int cell, int userId) {
         Optional<Ticket> ticketDB = Optional.empty();
         try (Connection connection = pool.getConnection();
@@ -60,6 +69,13 @@ public class TicketRepository {
         return ticketDB;
     }
 
+    /**
+     * Отправляет SQL запрос в БД.
+     * Ищет список билетов по id пользователя.
+     *
+     * @param id id пользователя
+     * @return список билетов
+     */
     public List<Ticket> findTicketByUserId(int id) {
         List<Ticket> tickets = new ArrayList<>();
         try (Connection connection = pool.getConnection();

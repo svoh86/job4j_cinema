@@ -38,6 +38,18 @@ public class TicketController {
         this.seatService = seatService;
     }
 
+    /**
+     * Показывает корзину с выбранными местами для конкретного сеанса фильма.
+     * Добавляет в модель атрибуты для валидации данных (needTickets, fail, success) и
+     * отображения данных о сеансе фильма, выбранных местах и занятых местах.
+     *
+     * @param model       Model
+     * @param httpSession httpSession
+     * @param needTickets флаг, что надо выбрать билеты
+     * @param fail        флаг, что места заняты
+     * @param success     флаг, что билеты куплены
+     * @return basket
+     */
     @GetMapping("/basket")
     public String basket(Model model, HttpSession httpSession,
                          @RequestParam(name = "needTickets", required = false) Boolean needTickets,
@@ -57,6 +69,17 @@ public class TicketController {
         return "basket";
     }
 
+    /**
+     * Пытается создать билет.
+     * Если список выбранных билетов пуст, то вернет страницу с корзиной с параметром needTickets=true.
+     * Если билет не добавился в БД, то он попадает в список failTickets.
+     * В таком случае возвращается страница с параметром fail=true.
+     * В остальных случаях возвращается страница с параметром success=true.
+     *
+     * @param model       Model
+     * @param httpSession HttpSession
+     * @return варианты страницы basket
+     */
     @PostMapping("/createTicket")
     public String createTicket(Model model, HttpSession httpSession) {
         UserSession.getUser(model, httpSession);

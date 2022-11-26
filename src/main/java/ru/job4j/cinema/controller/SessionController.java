@@ -32,6 +32,13 @@ public class SessionController {
         this.seatService = seatService;
     }
 
+    /**
+     * Показывает основную страницу с сеансами фильмов.
+     *
+     * @param model       Model
+     * @param httpSession HttpSession
+     * @return index
+     */
     @GetMapping("/index")
     public String index(Model model, HttpSession httpSession) {
         UserSession.getUser(model, httpSession);
@@ -39,6 +46,17 @@ public class SessionController {
         return "index";
     }
 
+    /**
+     * Показывает страницу с конкретным сеансом фильма.
+     * Пользователь выбирает ряд и место. Бронирует.
+     * Отображается список выбранных билетов.
+     * При нажатии кнопки "Купить" переходим в корзину.
+     *
+     * @param model       Model
+     * @param httpSession HttpSession
+     * @param sessionId   id сеанса фильма
+     * @return cinemaHall
+     */
     @GetMapping("/index/{sessionsID}")
     public String cinemaHallRows(Model model, HttpSession httpSession, @PathVariable("sessionsID") int sessionId) {
         UserSession.getUser(model, httpSession);
@@ -51,6 +69,14 @@ public class SessionController {
         return "cinemaHall";
     }
 
+    /**
+     * Добавляет данные из формы в карту, где ключ - id пользователя,
+     * значение - карта с id сеанса фильма и списком выбранных мест.
+     *
+     * @param seat        Место
+     * @param httpSession HttpSession
+     * @return страницу выбора места
+     */
     @PostMapping("/choiceSeat")
     public String choiceSeat(@ModelAttribute Seat seat, HttpSession httpSession) {
         int sessionId = (int) httpSession.getAttribute("sessionId");

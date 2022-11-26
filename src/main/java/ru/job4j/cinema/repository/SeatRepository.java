@@ -6,15 +6,23 @@ import ru.job4j.cinema.model.Seat;
 
 import java.util.*;
 
-
 /**
+ * Хранилище мест в зале
+ *
  * @author Svistunov Mikhail
  * @version 1.0
  */
 @ThreadSafe
 @Repository
 public class SeatRepository {
+    /**
+     * Список мест (ряды и сиденья)
+     */
     private final Set<Seat> seats = new HashSet<>();
+    /**
+     * Карта, содержащая id пользователей и карту,
+     * содержащую id сеанса фильма и список выбранных мест.
+     */
     private final Map<Integer, Map<Integer, Set<Seat>>> chosen;
 
     public SeatRepository(Map<Integer, Map<Integer, Set<Seat>>> chosen) {
@@ -45,6 +53,11 @@ public class SeatRepository {
         seats.add(new Seat(4, 6));
     }
 
+    /**
+     * Получения списка всех рядов
+     *
+     * @return список рядов
+     */
     public List<Integer> getAllRows() {
         return seats.stream()
                 .map(Seat::getRow)
@@ -53,6 +66,11 @@ public class SeatRepository {
                 .toList();
     }
 
+    /**
+     * Получения списка всех сидений
+     *
+     * @return список сидений
+     */
     public List<Integer> getAllCells() {
         return seats.stream()
                 .map(Seat::getCell)
@@ -61,6 +79,20 @@ public class SeatRepository {
                 .toList();
     }
 
+    /**
+     * Добавляет выбранные пользователем места в карту chosen.
+     * Если в карте chosen нет id пользователя, то он туда добавляется
+     * вместе с id сеанса фильма, и в список выбранных мест добавляется место.
+     * Если в карте chosen нет id сеанса фильма, то он туда добавляется,
+     * и в список выбранных мест добавляется место.
+     * Иначе в карту chosen добавляется место в список выбранных мест.
+     *
+     * @param userId    id пользователя
+     * @param sessionId id сеанса фильма
+     * @param seat      место
+     * @return Карта, содержащая id пользователей и карту,
+     * содержащую id сеанса фильма и список выбранных мест.
+     */
     public Map<Integer, Map<Integer, Set<Seat>>> add(int userId, int sessionId, Seat seat) {
         if (!chosen.containsKey(userId)) {
             Map<Integer, Set<Seat>> mapSeats = new HashMap<>();
@@ -80,6 +112,13 @@ public class SeatRepository {
         return chosen;
     }
 
+    /**
+     * Возвращает список выбранных мест или пустой список.
+     *
+     * @param userId    id пользователя
+     * @param sessionId id сеанса фильма
+     * @return список выбранных мест
+     */
     public List<Seat> showChosenSeats(int userId, int sessionId) {
         if (!chosen.containsKey(userId) || !chosen.get(userId).containsKey(sessionId)) {
             return new ArrayList<>();

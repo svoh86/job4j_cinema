@@ -6,6 +6,9 @@ import ru.job4j.cinema.model.User;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Служебный класс.
+ * Добавляет в модель атрибут "user".
+ *
  * @author Svistunov Mikhail
  * @version 1.0
  */

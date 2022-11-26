@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Хранилище сеансов фильмов.
+ *
  * @author Svistunov Mikhail
  * @version 1.0
  */
@@ -30,6 +32,12 @@ public class SessionRepository {
         this.pool = pool;
     }
 
+    /**
+     * Отправляет SQL запрос в БД.
+     * Ищет все сеансы фильмов.
+     *
+     * @return список сеансов фильмов
+     */
     public List<Session> findAll() {
         List<Session> sessions = new ArrayList<>();
         try (Connection connection = pool.getConnection();
@@ -52,6 +60,13 @@ public class SessionRepository {
         return sessions;
     }
 
+    /**
+     * Отправляет SQL запрос в БД.
+     * Ищет сеанс фильма по id.
+     *
+     * @param id id сеанса фильма
+     * @return сеанс фильма
+     */
     public Session findById(int id) {
         try (Connection connection = pool.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
@@ -70,10 +85,17 @@ public class SessionRepository {
         return null;
     }
 
+    /**
+     * Отправляет SQL запрос в БД.
+     * Добавляет сеанс фильма в БД.
+     *
+     * @param session сеанс фильма
+     * @return сеанс фильма
+     */
     public Session add(Session session) {
         try (Connection connection = pool.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-                ADD, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = connection.prepareStatement(
+                     ADD, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, session.getName());
             statement.setString(2, session.getTime());
             statement.execute();

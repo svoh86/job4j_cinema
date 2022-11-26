@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.util.Optional;
 
 /**
- * Класс репозиторий пользователей
+ * Хранилище пользователей
  *
  * @author Svistunov Mikhail
  * @version 1.0
@@ -29,6 +29,13 @@ public class UserRepository {
         this.pool = pool;
     }
 
+    /**
+     * Отправляет SQL запрос в БД.
+     * Добавляет пользователя в БД.
+     *
+     * @param user пользователь
+     * @return Optional пользователя
+     */
     public Optional<User> add(User user) {
         Optional<User> userDB = Optional.empty();
         try (Connection connection = pool.getConnection();
@@ -51,6 +58,15 @@ public class UserRepository {
         return userDB;
     }
 
+    /**
+     * Отправляет SQL запрос в БД.
+     * Ищет пользователя по email или телефону.
+     *
+     * @param username имя пользователя
+     * @param email    email пользователя
+     * @param phone    телефон пользователя
+     * @return Optional пользователя
+     */
     public Optional<User> findUserByEmailOrPhone(String username, String email, String phone) {
         Optional<User> userDB = Optional.empty();
         try (Connection connection = pool.getConnection();

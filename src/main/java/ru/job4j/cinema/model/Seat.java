@@ -9,7 +9,13 @@ import java.util.Objects;
  * @version 1.0
  */
 public class Seat implements Comparable<Seat> {
+    /**
+     * Номер ряда
+     */
     private int row;
+    /**
+     * Номер кресла
+     */
     private int cell;
 
     public Seat() {

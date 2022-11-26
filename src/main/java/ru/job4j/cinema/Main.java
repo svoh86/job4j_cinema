@@ -63,6 +63,11 @@ public class Main {
         return cfg;
     }
 
+    /**
+     * Запуск приложения
+     *
+     * @param args аргументы
+     */
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
         System.out.println("Go to http://localhost:8080/index");

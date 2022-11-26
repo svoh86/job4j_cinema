@@ -30,6 +30,16 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * Отображает страницу добавления (регистрации) нового пользователя.
+     * Добавляет в модель атрибуты для валидации данных (fail, success).
+     *
+     * @param model       Model
+     * @param fail        флаг, что пользователь уже существует.
+     * @param success     флаг, что регистрация успешна.
+     * @param httpSession HttpSession
+     * @return addUser
+     */
     @GetMapping("/addUser")
     public String addUser(Model model,
                           @RequestParam(name = "fail", required = false) Boolean fail,
@@ -41,6 +51,12 @@ public class UserController {
         return "addUser";
     }
 
+    /**
+     * Добавляет данные из формы в Optional<User>.
+     *
+     * @param user пользователь
+     * @return сообщение об успешной/неуспешной регистрации.
+     */
     @PostMapping("/createUser")
     public String createUser(@ModelAttribute User user) {
         Optional<User> regUser = userService.add(user);
@@ -50,12 +66,29 @@ public class UserController {
         return "redirect:/addUser?success=true";
     }
 
+    /**
+     * Отображает страницу авторизации пользователя.
+     * Добавляет в модель атрибуты для валидации данных (fail).
+     *
+     * @param model Model
+     * @param fail  флаг, что входные данные невалидные.
+     * @return login
+     */
     @GetMapping("/loginPage")
     public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
         model.addAttribute("fail", fail != null);
         return "login";
     }
 
+    /**
+     * Ищет пользователя в БД. Если его там нет, то возвращает страницу с параметром fail=true.
+     * Иначе переходит на начальную страницу.
+     * Получает объект httpSession из запроса и устанавливает ей параметр "user".
+     *
+     * @param user пользователь
+     * @param req  запрос
+     * @return index или loginPage?fail=true.
+     */
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpServletRequest req) {
         Optional<User> userDB = userService.findUserByEmailOrPhone(
@@ -68,6 +101,12 @@ public class UserController {
         return "redirect:/index";
     }
 
+    /**
+     * Выходит из сессии.
+     *
+     * @param session HttpSession
+     * @return станицу авторизации пользователя.
+     */
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
