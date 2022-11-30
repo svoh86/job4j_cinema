@@ -51,37 +51,37 @@ mvn spring-boot:run
 
 ## Взаимодействие с приложением
 Начальная страница
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/start.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/start.png)
 
 Регистрация пользователя
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/registration.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/registration.png)
 
 Неудачная регистрация
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/failRegistration.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/failRegistration.png)
 
 Удачная регистрация
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/successRegistration.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/successRegistration.png)
 
 Авторизация
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/login.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/login.png)
 
 Неудачная авторизация
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/failLogin.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/failLogin.png)
 
 Выбор места
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/choiceSeats.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/choiceSeats.png)
 
 Корзина
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/basket.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/basket.png)
 
 Предупреждение, что эти места уже заняты
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/failTicket.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/failTicket.png)
 
 Сообщение, что билеты куплены
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/successTicket.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/successTicket.png)
 
 Сообщение, что билеты не выбраны
-![alt text](https://github.com/svoh86/job4j_cinema/blob/master/src/main/java/ru/job4j/cinema/img/needsTicket.png)
+![alt text](https://github.com/svoh86/job4j_cinema/blob/master/img/needsTicket.png)
 
 ## Контакты
 
