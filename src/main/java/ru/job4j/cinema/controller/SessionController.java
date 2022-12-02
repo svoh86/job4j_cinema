@@ -85,4 +85,24 @@ public class SessionController {
         seatService.add(userId, sessionId, seat);
         return "redirect:/index/" + sessionId;
     }
+
+    /**
+     * Обрабатывает запрос на удаление места из списка выбранных
+     *
+     * @param row         ряд
+     * @param cell        место
+     * @param httpSession httpSession
+     * @return страницу выбора места
+     */
+    @GetMapping("/deleteSeat/{seatRow}/{seatCell}")
+    public String deleteSeat(@PathVariable("seatRow") int row,
+                             @PathVariable("seatCell") int cell,
+                             HttpSession httpSession) {
+        int sessionId = (int) httpSession.getAttribute("sessionId");
+        User user = (User) httpSession.getAttribute("user");
+        int userId = user.getId();
+        Seat seat = new Seat(row, cell);
+        seatService.deleteFromChosen(userId, sessionId, seat);
+        return "redirect:/index/" + sessionId;
+    }
 }

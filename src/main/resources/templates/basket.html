@@ -54,7 +54,11 @@
             </thead>
             <tbody>
             <tr class="table-secondary">
-                <td th:text="${sessions.name}"/>
+                <td>
+                    <a th:href="@{|/index/${sessions.id}|}">
+                        <span th:text="${sessions.name}"/>
+                    </a>
+                </td>
                 <td th:text="${sessions.time}"/>
             </tr>
             </tbody>

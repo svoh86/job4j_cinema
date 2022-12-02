@@ -37,4 +37,8 @@ public class SeatService {
     public List<Seat> showChosenSeats(int userId, int sessionId) {
         return seatRepository.showChosenSeats(userId, sessionId);
     }
+
+    public void deleteFromChosen(int userId, int sessionId, Seat seat) {
+        seatRepository.deleteFromChosen(userId, sessionId, seat);
+    }
 }

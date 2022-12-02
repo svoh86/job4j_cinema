@@ -128,4 +128,16 @@ public class SeatRepository {
                 .sorted()
                 .toList();
     }
+
+    /**
+     * Удаляет место из списка выбранных
+     *
+     * @param userId    id пользователя
+     * @param sessionId id сеанса фильма
+     * @param seat      удаляемое место
+     */
+    public void deleteFromChosen(int userId, int sessionId, Seat seat) {
+        Set<Seat> seats = chosen.get(userId).get(sessionId);
+        seats.remove(seat);
+    }
 }
