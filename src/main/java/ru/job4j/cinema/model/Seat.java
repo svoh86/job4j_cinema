@@ -61,12 +61,7 @@ public class Seat implements Comparable<Seat> {
 
     @Override
     public int compareTo(Seat anotherSeat) {
-        if (this.row > anotherSeat.row) {
-            return 1;
-        }
-        if (this.row == anotherSeat.row && this.cell > anotherSeat.cell) {
-            return 1;
-        }
-        return -1;
+        int rowResult = Integer.compare(this.row, anotherSeat.row);
+        return rowResult != 0 ? rowResult : Integer.compare(this.cell, anotherSeat.cell);
     }
 }
