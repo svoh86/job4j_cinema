@@ -17,10 +17,10 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
-class TicketRepositoryTest {
-    private final TicketRepository ticketRepository = new TicketRepository(new Main().loadPool());
-    private final static UserRepository USERREPOSITORY = new UserRepository(new Main().loadPool());
-    private final static SessionRepository SESSIONREPOSITORY = new SessionRepository(new Main().loadPool());
+class JdbcTicketRepositoryTest {
+    private final TicketRepository ticketRepository = new JdbcTicketRepository(new Main().loadPool());
+    private final static JdbcUserRepository USERREPOSITORY = new JdbcUserRepository(new Main().loadPool());
+    private final static SessionRepository SESSIONREPOSITORY = new JdbcSessionRepository(new Main().loadPool());
     private final static User USER = new User(10, "1", "1", "1");
     private final static Session SESSION = new Session(4, "2", "2");
 

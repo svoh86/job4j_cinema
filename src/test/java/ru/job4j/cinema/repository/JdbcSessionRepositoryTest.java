@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-class SessionRepositoryTest {
+class JdbcSessionRepositoryTest {
     @BeforeEach
     private void before() {
         try (Connection connection = new Main().loadPool().getConnection();
@@ -37,7 +37,7 @@ class SessionRepositoryTest {
 
     @Test
     public void whenAddAndFindAll() {
-        SessionRepository sessionRepository = new SessionRepository(new Main().loadPool());
+        SessionRepository sessionRepository = new JdbcSessionRepository(new Main().loadPool());
         Session session = new Session(1, "name", "time");
         Session session2 = new Session(2, "name2", "time2");
         List<Session> sessionList = new ArrayList<>();
@@ -50,7 +50,7 @@ class SessionRepositoryTest {
 
     @Test
     public void whenAddAndFindById() {
-        SessionRepository sessionRepository = new SessionRepository(new Main().loadPool());
+        SessionRepository sessionRepository = new JdbcSessionRepository(new Main().loadPool());
         Session session = new Session(1, "name", "time");
         Session session2 = new Session(2, "name2", "time2");
         sessionRepository.add(session);

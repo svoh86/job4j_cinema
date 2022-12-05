@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.*;
 
-class UserRepositoryTest {
+class JdbcUserRepositoryTest {
     @BeforeEach
     private void before() {
         try (Connection connection = new Main().loadPool().getConnection();
@@ -36,7 +36,7 @@ class UserRepositoryTest {
 
     @Test
     void whenAddUserAndFindByEmail() {
-        UserRepository userRepository = new UserRepository(new Main().loadPool());
+        UserRepository userRepository = new JdbcUserRepository(new Main().loadPool());
         User user = new User(1, "username", "email", "phone");
         userRepository.add(user);
         User userDB = userRepository.findUserByEmailOrPhone("username", "email", null).get();
@@ -45,7 +45,7 @@ class UserRepositoryTest {
 
     @Test
     void whenAddUserAndFindByPhone() {
-        UserRepository userRepository = new UserRepository(new Main().loadPool());
+        UserRepository userRepository = new JdbcUserRepository(new Main().loadPool());
         User user = new User(2, "newUsername", "newEmail", "newPhone");
         userRepository.add(user);
         User userDB = userRepository.findUserByEmailOrPhone("newUsername", null, "newPhone").get();
@@ -54,7 +54,7 @@ class UserRepositoryTest {
 
     @Test
     void whenNotAddUser() {
-        UserRepository userRepository = new UserRepository(new Main().loadPool());
+        UserRepository userRepository = new JdbcUserRepository(new Main().loadPool());
         User user = new User(1, "username", "mail", "phone");
         User user2 = new User(2, "username2", "mail", "phone2");
         userRepository.add(user);
