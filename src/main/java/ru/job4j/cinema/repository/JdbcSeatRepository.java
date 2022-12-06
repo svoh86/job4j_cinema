@@ -23,10 +23,9 @@ public class JdbcSeatRepository implements SeatRepository {
      * Карта, содержащая id пользователей и карту,
      * содержащую id сеанса фильма и список выбранных мест.
      */
-    private final Map<Integer, Map<Integer, Set<Seat>>> chosen;
+    private final Map<Integer, Map<Integer, Set<Seat>>> chosen = new HashMap<>();
 
-    public JdbcSeatRepository(Map<Integer, Map<Integer, Set<Seat>>> chosen) {
-        this.chosen = chosen;
+    public JdbcSeatRepository() {
         seats.add(new Seat(1, 1));
         seats.add(new Seat(1, 2));
         seats.add(new Seat(1, 3));

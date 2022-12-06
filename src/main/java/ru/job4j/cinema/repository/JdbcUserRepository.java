@@ -9,6 +9,7 @@ import ru.job4j.cinema.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
 /**
@@ -78,17 +79,21 @@ public class JdbcUserRepository implements UserRepository {
             statement.setString(3, phone);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
-                    userDB = Optional.of(new User(
-                            rs.getInt("id"),
-                            rs.getString("username"),
-                            rs.getString("email"),
-                            rs.getString("phone")
-                    ));
+                    userDB = Optional.of(getUser(rs));
                 }
             }
         } catch (Exception e) {
             LOG.error("Exception in method findUserByEmailOrPhone()", e);
         }
         return userDB;
+    }
+
+    private User getUser(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getInt("id"),
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("phone")
+        );
     }
 }

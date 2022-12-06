@@ -9,6 +9,7 @@ import ru.job4j.cinema.model.Ticket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -86,20 +87,22 @@ public class JdbcTicketRepository implements TicketRepository {
             statement.setInt(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
-                    tickets.add(
-                            new Ticket(
-                                    rs.getInt("id"),
-                                    rs.getInt("session_id"),
-                                    rs.getInt("pos_row"),
-                                    rs.getInt("cell"),
-                                    rs.getInt("user_id")
-                            )
-                    );
+                    tickets.add(getTicket(rs));
                 }
             }
         } catch (Exception e) {
             LOG.error("Exception in method findTicketByUserId()", e);
         }
         return tickets;
+    }
+
+    private Ticket getTicket(ResultSet rs) throws SQLException {
+        return new Ticket(
+                rs.getInt("id"),
+                rs.getInt("session_id"),
+                rs.getInt("pos_row"),
+                rs.getInt("cell"),
+                rs.getInt("user_id")
+        );
     }
 }
