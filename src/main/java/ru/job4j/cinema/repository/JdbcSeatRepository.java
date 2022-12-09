@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.cinema.model.Seat;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Хранилище мест в зале
@@ -23,7 +24,7 @@ public class JdbcSeatRepository implements SeatRepository {
      * Карта, содержащая id пользователей и карту,
      * содержащую id сеанса фильма и список выбранных мест.
      */
-    private final Map<Integer, Map<Integer, Set<Seat>>> chosen = new HashMap<>();
+    private final Map<Integer, Map<Integer, Set<Seat>>> chosen = new ConcurrentHashMap<>();
 
     public JdbcSeatRepository() {
         seats.add(new Seat(1, 1));
@@ -111,7 +112,7 @@ public class JdbcSeatRepository implements SeatRepository {
             Set<Seat> seats = chosen.get(userId).get(sessionId);
             seats.add(seat);
         }
-        return chosen;
+        return Map.copyOf(chosen);
     }
 
     /**
